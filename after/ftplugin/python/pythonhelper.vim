@@ -195,13 +195,14 @@ class SimplePythonTagsParser(object):
                 break
             # }}}
 
-            if (len(re.findall('"""',line))%2):
+            if (len(re.findall('"""',line))%2 == 1):
                 comment_switch = not comment_switch
-            if comment_switch:
-                break
-
             # increase the line number
             lineNumber += 1
+
+            if comment_switch:
+                continue
+
 
             # extract the line indentation characters and its content {{{
             lineMatch           = self.COMMENTS_INDENT_RE.match(line)
